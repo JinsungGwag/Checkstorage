@@ -15,6 +15,8 @@ int echoPins[] = { 12, 11, 3, 2 };
 int echoCount = 4;
 
 int distance;
+
+const int LIMIT = 40;
  
 void setup(){
   Serial.begin(9600);
@@ -43,11 +45,10 @@ void loop(){
     digitalWrite(TRIG, LOW);
   
     distance = pulseIn(echoPins[i], HIGH) / 58;
-    Serial.print("ECHO");
-    Serial.print(i + 1);
-    Serial.print(": ");
-    Serial.print(distance);
-    Serial.print("cm    ");
+    if(distance < LIMIT)
+      digitalWrite(ledPins[i], LOW);
+    else
+      digitalWrite(ledPins[i], HIGH);
   }
   Serial.println();
   delay(1000);
