@@ -28,96 +28,75 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.sdLabel = new System.Windows.Forms.Label();
             this.rcLabel = new System.Windows.Forms.Label();
-            this.sdComboBox = new System.Windows.Forms.ComboBox();
             this.rcComboBox = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.cnButton = new System.Windows.Forms.Button();
+            this.dcButton = new System.Windows.Forms.Button();
             this.rsListBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
-            // 
-            // sdLabel
-            // 
-            this.sdLabel.AutoSize = true;
-            this.sdLabel.Font = new System.Drawing.Font("굴림", 12F);
-            this.sdLabel.Location = new System.Drawing.Point(22, 31);
-            this.sdLabel.Name = "sdLabel";
-            this.sdLabel.Size = new System.Drawing.Size(77, 16);
-            this.sdLabel.TabIndex = 0;
-            this.sdLabel.Text = "송신 포트";
             // 
             // rcLabel
             // 
             this.rcLabel.AutoSize = true;
             this.rcLabel.Font = new System.Drawing.Font("굴림", 12F);
-            this.rcLabel.Location = new System.Drawing.Point(22, 73);
+            this.rcLabel.Location = new System.Drawing.Point(22, 25);
             this.rcLabel.Name = "rcLabel";
             this.rcLabel.Size = new System.Drawing.Size(77, 16);
             this.rcLabel.TabIndex = 1;
             this.rcLabel.Text = "수신 포트";
-            // 
-            // sdComboBox
-            // 
-            this.sdComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.sdComboBox.Font = new System.Drawing.Font("굴림", 12F);
-            this.sdComboBox.FormattingEnabled = true;
-            this.sdComboBox.Location = new System.Drawing.Point(109, 27);
-            this.sdComboBox.Name = "sdComboBox";
-            this.sdComboBox.Size = new System.Drawing.Size(121, 24);
-            this.sdComboBox.TabIndex = 2;
             // 
             // rcComboBox
             // 
             this.rcComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.rcComboBox.Font = new System.Drawing.Font("굴림", 12F);
             this.rcComboBox.FormattingEnabled = true;
-            this.rcComboBox.Location = new System.Drawing.Point(109, 70);
+            this.rcComboBox.Location = new System.Drawing.Point(109, 22);
             this.rcComboBox.Name = "rcComboBox";
             this.rcComboBox.Size = new System.Drawing.Size(121, 24);
             this.rcComboBox.TabIndex = 3;
             // 
-            // button1
+            // cnButton
             // 
-            this.button1.Font = new System.Drawing.Font("굴림", 12F);
-            this.button1.Location = new System.Drawing.Point(257, 23);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(91, 32);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "연결";
-            this.button1.UseVisualStyleBackColor = true;
+            this.cnButton.Font = new System.Drawing.Font("굴림", 12F);
+            this.cnButton.Location = new System.Drawing.Point(257, 17);
+            this.cnButton.Name = "cnButton";
+            this.cnButton.Size = new System.Drawing.Size(91, 32);
+            this.cnButton.TabIndex = 4;
+            this.cnButton.Text = "연결";
+            this.cnButton.UseVisualStyleBackColor = true;
+            this.cnButton.Click += new System.EventHandler(this.cnButton_Click);
             // 
-            // button2
+            // dcButton
             // 
-            this.button2.Font = new System.Drawing.Font("굴림", 12F);
-            this.button2.Location = new System.Drawing.Point(257, 66);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(91, 32);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "미연결";
-            this.button2.UseVisualStyleBackColor = true;
+            this.dcButton.Font = new System.Drawing.Font("굴림", 12F);
+            this.dcButton.Location = new System.Drawing.Point(361, 17);
+            this.dcButton.Name = "dcButton";
+            this.dcButton.Size = new System.Drawing.Size(91, 32);
+            this.dcButton.TabIndex = 5;
+            this.dcButton.Text = "미연결";
+            this.dcButton.UseVisualStyleBackColor = true;
+            this.dcButton.Click += new System.EventHandler(this.dcButton_Click);
             // 
             // rsListBox
             // 
+            this.rsListBox.Font = new System.Drawing.Font("굴림", 11F);
             this.rsListBox.FormattingEnabled = true;
-            this.rsListBox.ItemHeight = 12;
-            this.rsListBox.Location = new System.Drawing.Point(26, 121);
+            this.rsListBox.ItemHeight = 15;
+            this.rsListBox.Location = new System.Drawing.Point(26, 73);
             this.rsListBox.Name = "rsListBox";
-            this.rsListBox.Size = new System.Drawing.Size(322, 208);
+            this.rsListBox.Size = new System.Drawing.Size(426, 199);
             this.rsListBox.TabIndex = 6;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(383, 367);
+            this.ClientSize = new System.Drawing.Size(484, 299);
             this.Controls.Add(this.rsListBox);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.dcButton);
+            this.Controls.Add(this.cnButton);
             this.Controls.Add(this.rcComboBox);
-            this.Controls.Add(this.sdComboBox);
             this.Controls.Add(this.rcLabel);
-            this.Controls.Add(this.sdLabel);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -127,13 +106,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label sdLabel;
         private System.Windows.Forms.Label rcLabel;
-        private System.Windows.Forms.ComboBox sdComboBox;
         private System.Windows.Forms.ComboBox rcComboBox;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button cnButton;
+        private System.Windows.Forms.Button dcButton;
         private System.Windows.Forms.ListBox rsListBox;
     }
 }

@@ -13,11 +13,12 @@ namespace Bluetooth_connect
 {
     public partial class Form1 : Form
     {
+        SerialPort currentPort;
         int count = 0;
 
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -29,7 +30,6 @@ namespace Bluetooth_connect
         {
             Invoke((MethodInvoker)delegate
             {
-                sdComboBox.Items.Clear();
                 rcComboBox.Items.Clear();
             });
 
@@ -37,10 +37,58 @@ namespace Bluetooth_connect
             {
                 Invoke((MethodInvoker)delegate
                 {
-                    sdComboBox.Items.Add(port);
                     rcComboBox.Items.Add(port);
                 });
             }
+        }
+        
+        public void DataRecieved(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            {
+                SerialPort sp = (SerialPort)sender;
+                string recievedData = sp.ReadLine();
+                count++;
+                showReceived("Data" + count + " : " + recievedData + "\r\n");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("fail to receive\n\r" + ex.Message);
+            }
+        }
+
+        public void showReceived(string data)
+        {
+            Invoke((MethodInvoker)delegate
+            {
+                rsListBox.Items.Add(data);
+            });
+        }
+
+        private void cnButton_Click(object sender, EventArgs e)
+        {
+            currentPort = new SerialPort(rcComboBox.SelectedItem.ToString())
+            {
+                BaudRate = 9600
+            };
+            currentPort.DataReceived += new SerialDataReceivedEventHandler(DataRecieved);
+
+            try
+            {
+                if (!currentPort.IsOpen)
+                    currentPort.Open();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void dcButton_Click(object sender, EventArgs e)
+        {
+            currentPort.Close();
+            currentPort.DataReceived -= new SerialDataReceivedEventHandler(DataRecieved);
+            count = 0;
         }
     }
 }
