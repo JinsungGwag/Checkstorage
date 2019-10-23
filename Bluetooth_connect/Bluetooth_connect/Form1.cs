@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -14,11 +15,14 @@ namespace Bluetooth_connect
     public partial class Form1 : Form
     {
         SerialPort currentPort;
-        int count = 0;
+        const int dataCount = 4;
+        string[] datas;
 
         public Form1()
         {
-            InitializeComponent(); 
+            InitializeComponent();
+            datas = new string[dataCount];
+            resetData();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -47,14 +51,42 @@ namespace Bluetooth_connect
             try
             {
                 SerialPort sp = (SerialPort)sender;
-                string recievedData = sp.ReadLine();
-                count++;
-                showReceived("Data" + count + " : " + recievedData + "\r\n");
+                string receivedData = sp.ReadLine();
+                showReceived(receivedData);
+                dataSave(receivedData);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("fail to receive\n\r" + ex.Message);
             }
+        }
+
+        public void resetData()
+        {
+            for (int i = 0; i < dataCount; i++)
+                datas[i] = "-1";
+        }
+
+        public void dataSave(string data)
+        {
+            string[] msg = data.Split(':');
+
+            datas[int.Parse(msg[0])] = msg[1];
+
+            for(int i = 0; i < dataCount; i++)
+            {
+                if (datas[i] == "-1")
+                    return;
+            }
+
+            using (StreamWriter outputFile = new StreamWriter(@"C:\Users\Admin\Desktop\data.txt"))
+            {
+                for(int i = 0; i < dataCount; i++)
+                {
+                    outputFile.Write(datas[i] + ".");
+                }
+            }
+            resetData();
         }
 
         public void showReceived(string data)
@@ -88,7 +120,6 @@ namespace Bluetooth_connect
         {
             currentPort.Close();
             currentPort.DataReceived -= new SerialDataReceivedEventHandler(DataRecieved);
-            count = 0;
         }
     }
 }

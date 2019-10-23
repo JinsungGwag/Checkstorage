@@ -16,8 +16,8 @@ int echoCount = 4;
 
 int distance;
 
-const int LIMIT = 40;
- 
+const int LIMIT = 45;
+
 void setup(){
   Serial.begin(9600);
   bluetooth.begin(9600);
@@ -45,11 +45,18 @@ void loop(){
     digitalWrite(TRIG, LOW);
   
     distance = pulseIn(echoPins[i], HIGH) / 58;
+    
     if(distance < LIMIT)
       digitalWrite(ledPins[i], LOW);
     else
       digitalWrite(ledPins[i], HIGH);
+
+    //bluetooth.write(i + ":" + distance)
+    String index = String(i);
+    String far = String(distance);
+    String result = index + ":" + far + '\n';
+    bluetooth.print(result);
+    Serial.print(result);
   }
-  Serial.println();
   delay(1000);
 }
